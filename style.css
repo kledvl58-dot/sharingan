@@ -1,0 +1,117 @@
+
+/* SHARINGAN ACTIVATION ANIMATION */
+.eye{
+  transition: filter .4s ease;
+}
+
+.scene{
+  transition: filter .5s ease;
+}
+
+.ring{
+  transition: box-shadow .5s ease;
+}
+
+/* Activation mode */
+.scene.sharingan-active .eye{
+  animation: sharinganAwaken .8s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 35px #ff0000)
+          drop-shadow(0 0 75px #ff0000);
+}
+
+.scene.sharingan-active .eye svg{
+  animation: sharinganSpin .35s linear infinite;
+}
+
+.scene.sharingan-active .ring{
+  animation: ringAwaken .45s ease-in-out infinite alternate;
+  border-color: #ff1717;
+  box-shadow: 0 0 45px #ff0000,
+              inset 0 0 45px #ff0000;
+}
+
+.scene.sharingan-active:before{
+  animation: ambient 2s linear infinite;
+  background: repeating-radial-gradient(
+    ellipse,
+    transparent 0 35px,
+    #ff101055 38px 42px,
+    transparent 45px 75px
+  );
+}
+
+/* Red energy flash */
+.sharingan-flash{
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle,
+    #ff0000cc 0%,
+    #8b0000aa 35%,
+    #000000 100%
+  );
+}
+
+.sharingan-flash.fire{
+  animation: redFlash .8s ease-out forwards;
+}
+
+/* Expanding energy circle */
+.energy-ring{
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  left: 50%;
+  top: 50%;
+  z-index: 9997;
+  border: 4px solid #ff2020;
+  border-radius: 50%;
+  pointer-events: none;
+  box-shadow: 0 0 25px #f00,
+              inset 0 0 20px #f00;
+  transform: translate(-50%,-50%) scale(.1);
+  animation: energyExpand 1s ease-out forwards;
+}
+
+@keyframes sharinganSpin{
+  to{transform:rotate(360deg)}
+}
+
+@keyframes sharinganAwaken{
+  from{scale:1}
+  to{scale:1.08}
+}
+
+@keyframes ringAwaken{
+  from{transform:scale(.94);opacity:.6}
+  to{transform:scale(1.08);opacity:1}
+}
+
+@keyframes redFlash{
+  0%{opacity:0}
+  25%{opacity:.9}
+  55%{opacity:.55}
+  100%{opacity:0}
+}
+
+@keyframes energyExpand{
+  0%{
+    transform:translate(-50%,-50%) scale(.1);
+    opacity:1;
+  }
+  100%{
+    transform:translate(-50%,-50%) scale(35);
+    opacity:0;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .scene.sharingan-active .eye,
+  .scene.sharingan-active .eye svg,
+  .scene.sharingan-active .ring{
+    animation-duration:2s;
+  }
+}
